@@ -2,8 +2,9 @@
 mv jtool2 jtool2_orin
 lipo jtool2_orin -thin x86_64 -output jtool2_x86_64
 lipo jtool2_orin -thin arm64 -output jtool2_arm64
-./ldid -r jtool2_arm64
 install_name_tool -change /System/Library/Frameworks/CoreFoundation.framework/CoreFoundation /System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation jtool2_arm64
+install_name_tool -change /System/Library/Frameworks/Security.framework/Security /System/Library/Frameworks/Security.framework/Versions/A/Security jtool2_arm64
+./ldid -r jtool2_arm64
 ./ios2mac_jtool2 jtool2_arm64
 ./ldid -S -Cadhoc -Clinker-signed jtool2_arm64
 lipo -create -output jtool2 jtool2_arm64 jtool2_x86_64
