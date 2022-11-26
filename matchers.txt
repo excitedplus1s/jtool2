@@ -1,0 +1,154 @@
+#
+# jtool2's joker module (jokerlib) pattern matcher file.
+# 
+# Syntax is simple:
+#
+# arg#|pattern|function_this_is_called_in|calling_function|Anything from this point is ignored
+#
+# where:
+# 
+#  arg# = 0,1,2, or 3 only
+#  pattern = any partial but exact (from beginning) match. Note panic strings often have " in them.
+#  function_this_is_called_in = the containing function, NOT the calling function
+#  calling_function (optional) = function whose argument this is
+#
+#  The calling function is optional, because many times you will have identified it already
+#  since it gets called alot (e.g. OSKextLog, strcmp, panic etc).
+#
+#
+#  # is a comment, obviously
+#
+#
+#          Jtool2 will soon not be supported by me anymore, BUT,
+#          This ensures that jtool2's kernelcache analysis (a.k.a. jokerlib) will be future proof,
+#          as AAPL won't really obfuscate those strings, and you can add/modify any pattern you want,
+#          so... even if they do obfuscate, it won't help 'em :-)
+# 
+#
+# Using is even simpler:  JMATCHES=/path/to/this/file jtool2 --analyze kernelcache...
+# 
+# LICENSE:         
+# 
+#          FREE TO USE (AISE) **BUT** PLEASE GIVE CREDIT IF YOU FIND THIS USEFUL.
+# 
+#          IDA's "Lumina" and other "community databases" have long been fed by jtool2 - and that's 
+#          perfectly fine, but please give credit where due - not for me, but to spread the word of jtool2
+#          and get other people to use it, and hopefully find it useful.
+#          Oh  - And please share your patterns, if they work for you, leaving this LICENSE comment intact.
+# 
+## Matches for argument 0:
+0|iBoot version: %s\n|_PE_init_iokit|_printf"},
+0|__kernel__|__ZN6OSKext10initializeEv|__ZN8OSSymbol11withCStringEPKc
+0|com.apple.iokit.IOSurface|__ZN6OSKext10initializeEv|__ZN8OSSymbol17withCStringNoCopyEPKc
+0|"multiple entries with the same msgh_id|_mig_init|_panic
+0|"ipc_kobject_server: strange destination rights|_ipc_kobject_server|_panic
+0|"mach_msg_rpc_from_kernel|_mach_msg_rpc_from_kernel_body|_panic
+0|"Invalid port passed|_fileport_notify|_panic
+0|"Attempting to lookup/free|_vm_map_lookup_kalloc_entry_locked|_panic
+0|"kfree on an a|_kfree_addr|_panic
+0|"Ticket spinlock timeout; start|_tlock_contended|_panic
+0|"OSMalloc_Tagre|_OSMalloc_Tagref|
+0|"Lock bit not set %p = %lx|_lck_spin_assert|
+0|"lck_mtx_unlock(): Attempt to r"|_lck_mtx_unlock_contended|
+#0|"%s called before mach_bridge|_mach_bridge_recv_timestamps|_panic
+0|"lck_mtx_convert_spin: Not held as spinlock|_lck_mtx_convert_spin|
+0|"A kext releasing a(n)|__ZNK8OSSymbol13taggedReleaseEPKvi|
+0|"A kext referenced an unresolved weak s|_kext_weak_symbol_referenced|
+0|"%s timed out in phase|__ZN14IOPMrootDomain20panicWithShutdownLogEj|
+0|IOEthernetController: failed to allocate timesync|__ZN20IOEthernetController4initEP12OSDictionary|
+0|IOEthernetStatsKey|__ZN19IOEthernetInterface4initEP19IONetworkController|__ZN13IONetworkData18withInternalBufferEPKcjjPvPFiS2_S2_PS_jS2_PjjES2_|
+0|"OSMalloc_Tagrele|_OSMalloc_Tagrele|
+0|"OSMalloc_Tagfree|_OSMalloc_Tagfree|
+0|"ledger_entry_check_new_balan|_ledger_entry_check_new_balance|
+0|IOSurface: Planar surfaces must specify a valid buff|__ZN9IOSurface16parse_propertiesEP12OSDictionary|
+0|IOSurface: kIOSurfacePlaneComponentRanges compone|__ZL24parseAdditionalPlaneInfoP28IOSurfaceAdditionalPlaneInfoP12OSDictionary|
+0|IOSurface::flushProcessorCaches memory prepare failed|__ZN9IOSurface20flushProcessorCachesEv|
+0|IOSurface::cleanProcessorCaches memory prepare failed|__ZN9IOSurface20cleanProcessorCachesEv|
+0|sched_pri_decay_limit|_sched_init|_PE_parse_boot_argn|
+0|bad regex index|_match_regex|_invalid||Sandbox
+0|"no profile to evaluate"@|_eval|_panic|Sandbox
+0|/device|_derive_vnode_mount_path||Sandbox
+0|"released collection's refere|_profile_release|
+0|"called on incorrect vno"|_getrdev|
+## Matches for argument 1:
+1|mediaserverd|_open1|
+1|gth 0x%x|_arm_vm_prot_init|_arm_vm_page_granular_prot
+1|interrupt-controller|__ZN10AppleARMPE21platformAdjustServiceEP9IOService|__Z20IODTMatchNubWithKeysP15IORegistryEntryPKc|
+1|root_device|_vfs_mountroot|_vfs_rootmountalloc_internal|
+1|bank_lock|_bank_init|
+1|devfs_lock|_devfs_sinit|
+1|ctrr_cpu_start_lock|_ctrr_related|
+1|routefs_lock|_routefs_init|
+1|bootprofile group|_bootprofile_init|
+1|tzlock|_time_zone_slock_init|_lck_grp_init|
+1|*:%d|_populate_reporting_context|_sbuf_printf|COMMENT
+1|fseventsd|_sb_report|_strccmp|
+1|coreservicesd|_fseventsioctl|_strncmp|
+1|Network work queue lock|_nwk_wq_init|
+1|bridgetimestamp|_mach_bridge_init_timestamp|
+1|stackshot_subsys_lock|_stackshot_init|
+1|settime grp|_clock_config|
+1|<>|_OSKextGetKmodIDForSite|
+1|task|_task_init|
+1|bsddev_cache|__ZL30iokit_bsddev_cache_grow_lockedP12bsddev_cache|smalloc|
+1|thread|_thread_init|
+1|workq|_workq_init|
+1|host_notify|_host_notify_init|
+1|/private/var/mobile|_sb_ustate_manager_init|_sb_ustate_create|
+1| (per-pid)|_populate_reporting_context|_sbuf_cat|
+1|packbuff-container-manager-ipc|_sb_container_manager_request_new|_sb_packbuff_new_with_tag|
+1|WakeOnMagicPacket|__ZN19IOEthernetInterface17controllerDidOpenEP19IONetworkController|__ZN14IOPMrootDomain14publishFeatureEPKcjPj|
+#1|/..|_path_simplify|
+1|%s: SIOCSIFLLADDR %0|__ZN19IOEthernetInterface17syncSIOCSIFLLADDREP19IONetworkControllerPKci|
+1|com.apple.private.dmc.set|_disk_conditioner_set_info|__ZN12IOUserClient21copyClientEntitlementEP4taskPKc|
+1|IOEthernetInterface::willTerminate disabl|__ZN19IOEthernetInterface13willTerminateEP9IOServicej|
+## Matches for argument 2:
+2|Can't remove kext %s - not found.|__ZN6OSKext24removeKextWithIdentifierEPKcb|
+2|Failed to query kext UUID (MA|__ZN6OSKext22copyKextUUIDForAddressEP8OSNumber|
+2|Can't remove kext with load tag %d|__ZN6OSKext21removeKextWithLoadTagEjb|
+2|Failed to record kext %s as a can|__ZN6OSKext23recordIdentifierRequestEP8OSString|
+2|Kext %s has delayed autounload set|__ZN6OSKext14autounloadKextEPS_|
+2|;%0*llx|_syscall_extension_issue|
+2|com.apple.sandbox.pty|_sandbox_allow_pty|_extension_add
+2|Failed to create serializer on log info|__ZN6OSKext16serializeLogInfoEP7OSArrayPPcPj|
+2|Failed to load kext %s|__ZN6OSKext22loadKextWithIdentifierEP8OSStringbbhhP7OSArray|
+2|User-space log flags changed|__ZN6OSKext21setUserSpaceLogFilterEjb|
+2|sending all eligible reg|__ZN6OSKext33sendAllKextPersonalitiesToCatalogEb|
+2|cfil_acquire_sockbuf|_cfil_acquire_sockbuf|
+2|Kext %s is not loadable during safe boo|__ZN6OSKext24copyAllKextPersonalitiesEb|
+2|Can't release kext with load tag %d - no such kext is loaded.|_OSKextReleaseKextWithLoadTag|_OSKextLog|
+2|idle #%d|_idle_thread_create|_snprintf|
+2|Kext %s flushing dependencies.|__ZN6OSKext17flushDependenciesEb|_OSKextLog|
+2|com.apple.AppleFSCompression.providesType%u|__decmp_get_func|_snprintf|
+2|Refusing new kext %s, v%s: already have %s v%s.|__ZN6OSKext18registerIdentifierEv|_OSKextLog|
+2|Kext %s resolving dependencies."  ,"__ZN6OSKext19resolveDependenciesEP7OSArray|_OSKextLog|
+2|Loading kext %s.|__ZN6OSKext4loadEhhP7OSArray|_OSKextLog|
+2|WDT timeout|__ZN21AppleARMWatchDogTimer25_wdtCheckWatchdogInternalEb|_snprintf|
+2|skywalk.arena.%s.%s" |_skmem_arena_create_for_nexus|_snprintf|
+2|/dev/fd/%d|_exec_mach_imgact|_snprintf|
+2|skywalk.pp.%s|_pp_create|_snprintf|
+2|devsw_lock|_devsw_lock|_msleep|
+2|fsevent_unmount_wait|_fsevent_unmount|_msleep|
+2|forbidden-sandbox-reinit|_proc_apply_sandbox|__forbidden|
+2|%s processor|_make_brand_string|_snprintf|
+2|stackshot_in_flags|_do_stackshot|_kcdata_add_uint32_with_description|
+2|nfsrecoverrestart|nfs_recover|_tsleep|AAPL-REMOVE NFS CODE FROM iOS!!!
+3|nwk_wq_thread_func|_nwk_wq_thread_func|_msleep|
+3|nwk_wq_thread_cont|_nwk_wq_thread_cont|_msleep|
+3|waitq sets|_ipc_init|_zinit|
+3|%s system does not have monotonic clock|_clock_initialize_calendar|_os_log_internal|
+3|process %s[%d] caught waking the|_SENDING_NOTIFICATION__THIS_PROCESS_IS_CAUSING_TOO_MANY_WAKEUPS|_os_log_internal|
+3|%s bufsize bumped to %u from %u|_bpfioctl|_os_log_internal|
+3|%s: SleepWakeUUID not set, don't update the|_if_ports_used_update_wakeuuid|_os_log_internal|
+3|(%u): Detaching, ref count|_flow_divert_detach|_os_log_internal|
+3|(%u): Send buffer is NULL|_flow_divert_send_buffered_data|_os_log_internal|
+3|memorystatus: purged %llu pages f|_memorystatus_kill_proc|_os_log_internal|
+3|memorystatus_on_ledger_footprint_exceeded|_memorystatus_on_ledger_footprint_exceeded|_os_log_internal|
+3|%lu.%03d memorystatus|_memorystatus_kill_process_sync|_os_log_internal|
+3|EXC_RESOURCE ->|_memorystatus_log_exception|_os_log_internal|
+3|%s: failed negative len|_m_pullup|_os_log_internal|
+3|IOSurface count of %d approaching limit |__ZN13IOSurfaceRoot18add_surface_bufferEP9IOSurface|
+3|vm objects|_vm_object_bootstrap|_zinit|
+3|io_reprioritize_req|_vm_io_reprioritize_init|_zinit|
+3|skywalk.mem.arena.system|_skmem_arena_init|_zinit|
+3|Internal Error: No cdhash found.|__ZL22_vnode_check_signatureP5vnodeP5labeliP7cs_blobPjS5_iPPcPm|__ZL15fatal_error_fmtP5vnodePPcPmPKcz|
