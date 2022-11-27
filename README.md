@@ -7,7 +7,7 @@ Please Read convert for more details
 
 [Modifyed ldid support linker-signed](https://github.com/excitedplus1s/ldid)
 
-[ios2macosversion]https://github.com/excitedplus1s/ios2macosversion
+[ios2macosversion](https://github.com/excitedplus1s/ios2macosversion)
 # Credits
 http://newosxbook.com/tools/jtool.html 
 
