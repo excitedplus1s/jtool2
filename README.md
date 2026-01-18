@@ -27,8 +27,8 @@ or you can use
 brew install excitedplus1s/repo/jtool2
 ```
 ```shell
-sudo xattr -r -d /opt/homebrew/Caskroom/jtool2/2020.02.10/jtool2
+sudo xattr -r -d com.apple.quarantine /opt/homebrew/Caskroom/jtool2/2020.02.10/jtool2
 ```
 ```shell
-sudo xattr -r -d /opt/homebrew/Caskroom/jtool2/2020.02.10/disarm
+sudo xattr -r -d com.apple.quarantine /opt/homebrew/Caskroom/jtool2/2020.02.10/disarm
 ```
