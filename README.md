@@ -16,7 +16,7 @@ https://github.com/ProcursusTeam/ldid
 # Install
 Homebrew
 ```shell
-brew tap excitedplus1s/repo/jtool2
+brew tap excitedplus1s/repo
 ```
 install without Apple Quarantine
 ```shell
